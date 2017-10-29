@@ -25,7 +25,7 @@ jq -r '.edges[] | [.canonical_url, .date_published, .domain, .from_user_id, .fro
  El primer paso aquí es colocar el archivo noticias.json en la carpera llamada "import" de node4j (esto requiere que esté [instalado localemente](https://neo4j.com/docs/operations-manual/current/installation/)). Luego ejecutar:
  
  
-######Cargar noticias
+###### Cargar noticias
 
 1. Creamos los nodos "Noticia" con los atributos url, idNoticia y titulo.
 ```
@@ -63,7 +63,7 @@ MERGE (n)-[:IMPACTA]->(u);
 
 ![Alt text](/img/graphImpacta_0.png?raw=true)
 
-######Agregar la relacion de infeccíon
+###### Agregar la relacion de infeccíon
 
 5. Creamos las relaciones entre usuarios que se envian noticias (transición INFECTA)
 ```
