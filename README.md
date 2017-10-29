@@ -13,41 +13,47 @@
 
 ## Desarrollo
 
-###### Conversión de datos .json a .csv
+**Conversión de datos .json a .csv**
  Nuesto primer paso es convertir los datos que provienen en formato [json](http://www.json.org) a un formato aceptado por la base de datos ([csv](https://en.wikipedia.org/wiki/Comma-separated_values)). Para esto utilizamos [jq](https://stedolan.github.io/jq/):
 ```
 jq -r '.edges[] | [.canonical_url, .date_published, .domain, .from_user_id, .from_user_screen_name, .id,.is_mention, .site_type,.title, .to_user_id, .to_user_screen_name, .tweet_created_at, .tweet_id, .tweet_type, .url_id | tostring]  | @csv ' noticias.json
 ```
  Con la instrucción anterior vamos a obtener un archivo llamado noticias.json el cual debemos importar en la siguiente sección.
  
-###### Importar proyecto
+**Importar proyecto**
  
  El primer paso aquí es colocar el archivo noticias.json en la carpera llamada "import" de node4j (esto requiere que esté [instalado localemente](https://neo4j.com/docs/operations-manual/current/installation/)). Luego ejecutar:
  
  
-**Cargar noticias**
+######Cargar noticias
+
+1. Creamos los nodos "Noticia" con los atributos url, idNoticia y titulo.
 ```
 LOAD CSV FROM "file:///noticias.csv" AS line
 MERGE (n:Noticia{url:line[0],idNoticia:line[5],titulo:line[8]});
 ```
-1. Cargar users que crearon noticias
+
+2. Creamos los nodos "Usuario" con screenName y userId. Estos son los usuarios que crearon noticias
 ```
 LOAD CSV FROM "file:///noticias.csv" AS line
 MERGE (n:Usuario{screenName:line[4],userId:line[3]});
 ```
-2. Cargar users que recibieron noticias (no se deberían crear repetidos)
+
+2. Creamos los nodos "Usuario" con screenName y userId. Estos son los usuarios que recibieron noticias. (no se deberían crear repetidos)
 ```
 LOAD CSV FROM "file:///noticias.csv" AS line
 MERGE (n:Usuario{screenName:line[10],userId:line[9]});
 ```
-3. Relacionar cada noticia con su creador
+
+3. Creamos las relaciones entre noticias y sus creadores (transición IMPACTA)
 ```
 LOAD CSV FROM "file:///noticias.csv" AS line
 MATCH (n:Noticia {titulo: line[8]})
 MATCH (u:Usuario {userId:line[3]})
 MERGE (n)-[:IMPACTA]->(u);
 ```
-4. Relacionar noticia con los receptores de las mismas
+
+4. Creamos las relaciones entre usuarios y las noticias que leyeron (transición IMPACTA)
 ```
 LOAD CSV FROM "file:///noticias.csv" AS line
 MATCH (n:Noticia {titulo: line[8]})
@@ -57,7 +63,9 @@ MERGE (n)-[:IMPACTA]->(u);
 
 ![Alt text](/img/graphImpacta_0.png?raw=true)
 
-**Agregar la relacion de infeccíon**
+######Agregar la relacion de infeccíon
+
+5. Creamos las relaciones entre usuarios que se envian noticias (transición INFECTA)
 ```
 LOAD CSV FROM "file:///noticias.csv" AS line
 MATCH (u1:Usuario {userId:line[3]})
