@@ -111,6 +111,32 @@ return u.userId as Node, inDegree
 
 4. ¿Cómo es la distribución de los grados de entrada y salida de los nodos? Presente la información en un histograma.
 
+Agregamos grado de salida de nodos como etiquetas:
+```
+MATCH (u1:Usuario)-->(u2:Usuario)
+WITH u1, count(u2) as salida
+SET u1.cantNodosSalida = salida
+```
+Agregamos grado de entrada de nodos como etiquetas:
+```
+MATCH (u1:Usuario)-->(u2:Usuario)
+WITH u2, count(u1) as entrada
+SET u2.cantNodosEntrada = entrada
+```
+Agrupamos nodos por cardinalidad de salida:
+```
+MATCH (u1:Usuario)
+RETURN u1.cantNodosSalida, count(u1)
+```
+Agrupamos nodos por cardinalidad de entrada:
+```
+MATCH (u1:Usuario)
+RETURN u1.cantNodosEntrada, count(u1)
+```
+Notar que cuando cantNodos de entrada o salida da null es para el caso que no tiene nodos de entrada o salida (i.e cero).
+
+![Alt text](/img/graphHistorigrama.png?raw=true)
+
 5. Llamaremos root-influencers a los nodos raíces del grafo de infección. Escriba una consulta que dado un nodo de usuario en el grafo de infección diga si es root-influencer o no. ¿Qué proporción hay de root-influencers? Muestre la información apropiadamente.
 
 ```
