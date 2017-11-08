@@ -80,15 +80,25 @@ MERGE (u1)-[:INFECTA]->(u2);
  
 1. Enumere las noticias que han impactado en más del 25 % de la comunidad.
 
+Contamos los usuarios totales y pasamos el resultado a las siguientes clausulas
 ```
 match (u:Usuario)
 with count(u) as userNodes
+```
+Para una noticia, buscamos todos los usuarios a los que IMPACTA y contamos la cantidad de ejes salientes.
+```
 match (n:Noticia)-[r]-()
 with userNodes, n, count(r) as degree 
+```
+Filtramos las noticias que tengan grado de impacto superior al 25% de la cantidad de usuarios totales y devolvemos el resultado
+
+```
 where degree > userNodes*0.25
 return n.titulo AS node, degree
 order by degree;
 ```
+Al ejecutar dicha query en la base de datos, se obtuvo el siguiente resultado:
+
 ![Alt text](/img/tableQuery1.png?raw=true)
 
 2. Genere el sub-grafo de usuarios que consumen las mismas noticias.
@@ -103,12 +113,19 @@ A continuacin se muestran los subgrafos correspondientes a tres noticias de la b
 
 3. ¿Existen usuarios de Twitter que han estado en contacto con más del 20 % del lote de noticias?
 
+Para cada usuario, buscamos todas las noticias que lo IMPACTAN (es decir, noticias que están en contacto con el mismo) y contamos el grado de entrada de dichos ejes
 ```
 match(u:Usuario)
 match( (n2:Noticia)-[r]->(u) )
 with u, count(r) as inDegree
+```
+Contamos la cantidad total de noticias que hay en la base
+```
 match (n1:Noticia) 
 with u, inDegree, count(n1) as news
+```
+Filtramos los usuarios obtenidos que tengan un grado de entrada mayor al 20% de la cantidad de noticias
+```
 where inDegree >= 0.2*news
 return u.userId as Node, inDegree
 ```
