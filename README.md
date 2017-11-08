@@ -45,6 +45,7 @@ LOAD CSV FROM "file:///noticias.csv" AS line
 MERGE (n:Usuario{screenName:line[10],userId:line[9]});
 ```
 
+![Alt text](/img/graphQuery2.png?raw=true)
 3. Creamos las relaciones entre noticias y sus creadores (transición IMPACTA)
 ```
 LOAD CSV FROM "file:///noticias.csv" AS line
