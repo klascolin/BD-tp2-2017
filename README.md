@@ -159,6 +159,8 @@ Notar que cuando cantNodos de entrada o salida da null es para el caso que no ti
 
 ![Alt text](/img/graphHistorigrama.png?raw=true)
 
+![Alt text](/img/graphHistorigramaSin0.png?raw=true)
+
 5. Llamaremos root-influencers a los nodos raíces del grafo de infección. Escriba una consulta que dado un nodo de usuario en el grafo de infección diga si es root-influencer o no. ¿Qué proporción hay de root-influencers? Muestre la información apropiadamente.
 
 ```
