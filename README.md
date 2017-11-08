@@ -181,12 +181,14 @@ RETURN count(distinct(root))*100/total as proporcion
 
 7. Pode el grafo quitando todos los root-influencers y muestre gráficamente como queda el grafo resultante. Si la información es muy grande, recorte apropiadamente.
 
+```
 MATCH (root:Usuario)-[:INFECTA]->()
 WHERE NOT ()-[:INFECTA]->(root)
 WITH collection( distints root) as rooters
 MATCH (user:Usuario)
 WHERE NOT user IN rooters
 RETURN user.userId;
+```
 
 8. Considere la introducción de índices a los modelos. Evalué la performance de las consultas implementadas con y sin utilización de índices.
 
