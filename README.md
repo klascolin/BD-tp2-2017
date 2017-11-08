@@ -45,7 +45,6 @@ LOAD CSV FROM "file:///noticias.csv" AS line
 MERGE (n:Usuario{screenName:line[10],userId:line[9]});
 ```
 
-![Alt text](/img/graphQuery2.png?raw=true)
 3. Creamos las relaciones entre noticias y sus creadores (transición IMPACTA)
 ```
 LOAD CSV FROM "file:///noticias.csv" AS line
@@ -90,6 +89,7 @@ where degree > userNodes*0.25
 return n.titulo AS node, degree
 order by degree;
 ```
+![Alt text](/img/tableQuery1.png?raw=true)
 
 2. Genere el sub-grafo de usuarios que consumen las mismas noticias.
 
@@ -97,6 +97,7 @@ order by degree;
 MATCH (n:Noticia)-[:IMPACTA]->(u:Usuario)
 RETURN n as Noticia, collect(u) as Usuarios, count(u) as CantUsuarios
 ```
+A continuacin se muestran los subgrafos correspondientes a tres noticias de la base
 
 ![Alt text](/img/graphQuery2.png?raw=true)
 
@@ -111,6 +112,7 @@ with u, inDegree, count(n1) as news
 where inDegree >= 0.2*news
 return u.userId as Node, inDegree
 ```
+![Alt text](/img/tableQuery3.png?raw=true)
 
 4. ¿Cómo es la distribución de los grados de entrada y salida de los nodos? Presente la información en un histograma.
 
