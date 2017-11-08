@@ -97,6 +97,8 @@ MATCH (n:Noticia)-[:IMPACTA]->(u:Usuario)
 RETURN n as Noticia, collect(u) as Usuarios, count(u) as CantUsuarios
 ```
 
+![Alt text](/img/graphQuery2.png?raw=true)
+
 3. ¿Existen usuarios de Twitter que han estado en contacto con más del 20 % del lote de noticias?
 
 ```
