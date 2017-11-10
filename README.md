@@ -211,8 +211,20 @@ MATCH (user:Usuario)
 WHERE NOT user IN rooters
 RETURN user;
 ```
+A continuación se muestra una componente conexa del grafo, con los infectados por el root "The Onion"
 
-FALTA MOSTRAR LA INFORMACION
+![Alt text](/img/graphQuery7_2.png?raw=true)
+
+ 
+![Alt text](/img/graphQuery7.png?raw=true)
+
+
+Por otro lado, la siguiente componente conexa muestra a un nodo central que queda sin ejes que lo apunten, ya que el root,"Ifollowstuffnow" fue removido.
+
+![Alt text](/img/graphQuery7_3.png?raw=true)
+
+
+
 
 8. Considere la introducción de índices a los modelos. Evalué la performance de las consultas implementadas con y sin utilización de índices.
 
