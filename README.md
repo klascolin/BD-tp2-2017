@@ -211,14 +211,12 @@ MATCH (user:Usuario)
 WHERE NOT user IN rooters
 RETURN user;
 ```
-A continuación se muestran parte de de dos componentes conexas del grafo, con los infectados por los root-influencer "The Onion" y "Ifollowstuff" antes y después de ejecutar la query. 
+A continuación se muestran parte de de dos componentes conexas del grafo, con los infectados por los root-influencer "The Onion" y "Ifollowstuff" antes y después de ejecutar la query. Notar que los nodos "null" en realidad se corresponden con idUsuarios distintos, pero con igual screenName. 
 
 ![Alt text](/img/graphQuery7_2.png?raw=true)
 
  
 ![Alt text](/img/graphQuery7_1.png?raw=true)
-
-
 
 
 
