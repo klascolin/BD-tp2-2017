@@ -16,11 +16,11 @@
 ```
 jq -r '.edges[] | [.canonical_url, .date_published, .domain, .from_user_id, .from_user_screen_name, .id,.is_mention, .site_type,.title, .to_user_id, .to_user_screen_name, .tweet_created_at, .tweet_id, .tweet_type, .url_id | tostring]  | @csv ' noticias.json
 ```
- Con la instrucción anterior vamos a obtener un archivo llamado noticias.json el cual debemos importar en la siguiente sección.
+ Con la instrucción anterior vamos a obtener un archivo llamado noticias.csv el cual debemos importar en la siguiente sección.
  
 **Importar proyecto**
  
- El primer paso aquí es colocar el archivo noticias.json en la carpera llamada "import" de node4j (esto requiere que esté [instalado localemente](https://neo4j.com/docs/operations-manual/current/installation/)). Luego ejecutar:
+ El primer paso aquí es colocar el archivo noticias.csv en la carpera llamada "import" de node4j (esto requiere que esté [instalado localemente](https://neo4j.com/docs/operations-manual/current/installation/)). Luego ejecutar:
  
  
 ###### Cargar noticias
@@ -196,11 +196,25 @@ El resultado muestra la proporción expresada como un porcentaje:
 
 6. Calcule el grado de la infección para un root-influencer dado. El grado de infección está dado por el camino más largo que se puede alcanzar desde un root-influencer.
 
-MATCH p = (root:Usuario {screenName: "beforeitsnews"})-[:INFECTA*1..]->(m)
-WHERE NOT ()-[:INFECTA]->(root)
+Buscamos todos los caminos con relación de infección cuyo primer nodo tenga como screenName "LillyMunster3" y lo guardamos en la variable p.
+```
+MATCH p = (root:Usuario {screenName: "LillyMunster3"})-[:INFECTA*1..]->(m)
+```
+
+Retornamos todos los caminos y guardamos su longitud en la variable L.
+```
 RETURN p, length(p) as L
+```
+
+Ordenamos según su longitud y nos quedamos con el mas grande.
+```
 ORDER BY L DESC
 LIMIT 1
+```
+
+El camino mas largo es, en este caso, de longitud 6.
+
+![Alt text](/img/resultQuery6.png?raw=true)
 
 7. Pode el grafo quitando todos los root-influencers y muestre gráficamente como queda el grafo resultante. Si la información es muy grande, recorte apropiadamente.
 
