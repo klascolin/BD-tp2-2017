@@ -145,11 +145,13 @@ SET u2.cantNodosEntrada = entrada
 ```
 Agrupamos nodos por cardinalidad de salida:
 ```
+MATCH (u1:Usuario)
 RETURN u1.cantNodosSalida, count(u1)
 ```
 Agrupamos nodos por cardinalidad de entrada:
 ```
-RETURN u2.cantNodosEntrada, count(u2)
+MATCH (u1:Usuario)
+RETURN u1.cantNodosEntrada, count(u1)
 ```
 Notar que cuando cantNodos de entrada o salida da null es para el caso que no tiene nodos de entrada o salida (i.e cero).
 
