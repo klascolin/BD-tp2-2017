@@ -159,6 +159,9 @@ Notar que cuando cantNodos de entrada o salida da null es para el caso que no ti
 
 ![Alt text](/img/graphHistorigramaSin0.png?raw=true)
 
+Podemos observar en los graficos que muestran los grados de salida, que la mayoría de la comunidad mantiene una actitud "pasiva" con respecto a la emisión de noticias y que, efectivamente, son pocos nodos de usuarios los que aportan un gran caudal de noticias. Por ejemplo, se observa que hay menos de diez nodos cuyo grado de infección (cantidad de noticias falsas difundidas) es superior a 100.
+Por otra parte, se desprende del gráfico de grados de entrada, que aproximadamente el 65% de la comunidad fue penetetrada por 2 o menos noticias falsas.
+
 5. Llamaremos root-influencers a los nodos raíces del grafo de infección. Escriba una consulta que dado un nodo de usuario en el grafo de infección diga si es root-influencer o no. ¿Qué proporción hay de root-influencers? Muestre la información apropiadamente.
 
 Buscamos un nodo cuyo screenName sea "beforeitsnews"
