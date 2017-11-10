@@ -196,6 +196,12 @@ El resultado muestra la proporción expresada como un porcentaje:
 
 6. Calcule el grado de la infección para un root-influencer dado. El grado de infección está dado por el camino más largo que se puede alcanzar desde un root-influencer.
 
+MATCH p = (root:Usuario {screenName: "beforeitsnews"})-[:INFECTA*1..]->(m)
+WHERE NOT ()-[:INFECTA]->(root)
+RETURN p, length(p) as L
+ORDER BY L DESC
+LIMIT 1
+
 7. Pode el grafo quitando todos los root-influencers y muestre gráficamente como queda el grafo resultante. Si la información es muy grande, recorte apropiadamente.
 
 Buscamos los nodos que son root, como se hizo anteriormente, y los ordenamos en una lista de rooters. Pasamos dicha información a la siguiente parte de la query

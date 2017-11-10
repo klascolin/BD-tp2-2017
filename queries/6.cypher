@@ -1,5 +1,5 @@
-match p = (root)-[:INFECTA*1..]->(m)
+MATCH p = (root:Usuario {screenName: "beforeitsnews"})-[:INFECTA*1..]->(m)
 WHERE NOT ()-[:INFECTA]->(root)
-return p, length(p) as L
-order by L desc
-limit 1
+RETURN p, length(p) as L
+ORDER BY L DESC
+LIMIT 1
