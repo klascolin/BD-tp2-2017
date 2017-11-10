@@ -200,13 +200,14 @@ Buscamos los nodos que son root, como se hizo anteriormente, y los ordenamos en 
 ```
 MATCH (root:Usuario)-[:INFECTA]->()
 WHERE NOT ()-[:INFECTA]->(root)
-WITH collection( distints root) as rooters
+WITH collect( distinct(root)) as rooters
+
 ```
 Buscamos todos los nodos usuarios que no esten en la lista de rooters y los devolvemos
 ```
 MATCH (user:Usuario)
 WHERE NOT user IN rooters
-RETURN user.userId;
+RETURN user;
 ```
 
 FALTA MOSTRAR LA INFORMACION
