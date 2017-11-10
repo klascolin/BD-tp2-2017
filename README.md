@@ -216,7 +216,7 @@ A continuación se muestran parte de de dos componentes conexas del grafo, con l
 ![Alt text](/img/graphQuery7_2.png?raw=true)
 
  
-![Alt text](/img/graphQuery7.png?raw=true)
+![Alt text](/img/graphQuery7_1.png?raw=true)
 
 
 
