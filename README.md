@@ -211,7 +211,7 @@ MATCH (user:Usuario)
 WHERE NOT user IN rooters
 RETURN user;
 ```
-A continuación se muestra una componente conexa del grafo, con los infectados por el root "The Onion"
+A continuación se muestran dos componentes conexas del grafo, con los infectados por el root "The Onion" y "Ifollowstuff" antes y después de ejecutar la query. 
 
 ![Alt text](/img/graphQuery7_2.png?raw=true)
 
