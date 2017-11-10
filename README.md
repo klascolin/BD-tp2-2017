@@ -170,13 +170,14 @@ Verificamos que no exista el siguiente patron. Es decir, que no haya nodos que l
 ```
 WHERE NOT ()-[:INFECTA]->(root) 
 ```
-Devolvemos false si el nodo aparece 1 o más veces en el patron anterior. Es decir, si hay al menos un nodo que lo infecta. REVISAR ESTO, PORQUE ES AL REVÉS DE LO QUE ESTÁ ABAJO.
+Como es un nodo raiz, debe infectar al menos a otro usuario y entonces hubo al menos un patrón que "hizo match"
 
 ```
 RETURN count(root) > 0 as esRoot
 ```
+Para responder la siguiente pregunta, sobre la proporcin, realizamos la siguiente consulta:
 
-Contamos los usuarios totales
+Contamos la cantidad de usuarios totales 
 ```
 MATCH (user:Usuario)
 WITH count(distinct(user)) as total
@@ -187,8 +188,9 @@ MATCH (root:Usuario)-[:INFECTA]->()
 WHERE NOT ()-[:INFECTA]->(root) 
 RETURN count(distinct(root))*100/total as proporcion
 ```
+![Alt text](/img/resultQuery5.png?raw=true)
 
-FALTA MOSTRAR LA INFORMACION
+
 
 6. Calcule el grado de la infección para un root-influencer dado. El grado de infección está dado por el camino más largo que se puede alcanzar desde un root-influencer.
 
