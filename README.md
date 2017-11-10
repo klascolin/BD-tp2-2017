@@ -211,7 +211,7 @@ MATCH (user:Usuario)
 WHERE NOT user IN rooters
 RETURN user;
 ```
-A continuación se muestran dos componentes conexas del grafo, con los infectados por el root "The Onion" y "Ifollowstuff" antes y después de ejecutar la query. 
+A continuación se muestran parte de de dos componentes conexas del grafo, con los infectados por los root-influencer "The Onion" y "Ifollowstuff" antes y después de ejecutar la query. 
 
 ![Alt text](/img/graphQuery7_2.png?raw=true)
 
@@ -219,9 +219,7 @@ A continuación se muestran dos componentes conexas del grafo, con los infectado
 ![Alt text](/img/graphQuery7.png?raw=true)
 
 
-Por otro lado, la siguiente componente conexa muestra a un nodo central que queda sin ejes que lo apunten, ya que el root,"Ifollowstuffnow" fue removido.
 
-![Alt text](/img/graphQuery7_3.png?raw=true)
 
 
 
