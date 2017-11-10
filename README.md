@@ -188,6 +188,8 @@ MATCH (root:Usuario)-[:INFECTA]->()
 WHERE NOT ()-[:INFECTA]->(root) 
 RETURN count(distinct(root))*100/total as proporcion
 ```
+El resultado muestra la proporción expresada como un porcentaje:
+
 ![Alt text](/img/resultQuery5.png?raw=true)
 
 
