@@ -246,7 +246,7 @@ A continuación se muestran parte de de dos componentes conexas del grafo, con l
 
 ## Conclusión
 
- Este trabajo nos permitio indagar un poco sobre este nuevo tipo de base de datos no sql. Algunas ventajas que pudimos observar de la misma es que reflejan perfectamente la relacion entre distintas entidades, permitiendo asi, realizar analisis mas profundos sobre relaciones. Un ejemplo para mostrar esto es el del [tutorial de neo4j sobre] fraudes(https://neo4j.com/graphgists/?category=fraud-detection), o mismo, este trabajo practico, donde analizamos el impacto de las noticias en base a twitts (donde los usuarios eran las entidades y los rettuits las relaciones).
+ Este trabajo nos permitio indagar un poco sobre este nuevo tipo de base de datos no sql. Algunas ventajas que pudimos observar de la misma es que reflejan perfectamente la relacion entre distintas entidades, permitiendo asi, realizar analisis mas profundos sobre relaciones. Un ejemplo para mostrar esto es el del [tutorial de neo4j sobre fraudes](https://neo4j.com/graphgists/?category=fraud-detection), o mismo, este trabajo practico, donde analizamos el impacto de las noticias en base a twitts (donde los usuarios eran las entidades y los rettuits las relaciones).
  
   Por otro lado, algo un poco negativo de la misma es que es un paradigma totalmente distinto al de sql y hace que la curva de aprendizaje sea mayor (sobre todo si nunca trabajaste sobre grafos). 
   
