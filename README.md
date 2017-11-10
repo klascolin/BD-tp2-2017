@@ -244,6 +244,112 @@ A continuación se muestran parte de de dos componentes conexas del grafo, con l
 
 8. Considere la introducción de índices a los modelos. Evalué la performance de las consultas implementadas con y sin utilización de índices.
 
+### query
+
+1)
+match (u:Usuario)
+with count(u) as userNodes
+match (n:Noticia)-[r]-()
+with userNodes, n, count(r) as degree
+where degree > userNodes*0.25
+return n.titulo AS node, degree
+order by degree;
+
+Result:
+Sin Indice:
+
+ - Promedio: 2,6 
+ - Varianza: 0.44
+
+Con Indice "CREATE INDEX ON :Noticia(degrees)":
+CREATE INDEX ON :Usuario(count)
+
+ - Promedio: 2,2
+ - Varianza: 0,16
+
+2)
+MATCH (n:Noticia)-[:IMPACTA]->(u:Usuario)
+RETURN n as Noticia, collect(u) as Usuarios, count(u) as CantUsuarios
+
+Result:
+Sin Indice:
+
+ - Promedio: 8,4
+ - Varianza: 3,04
+
+Con Indice "CREATE INDEX ON :Usuario(idNoticia)":
+
+ - Promedio: 2,7
+ - Varianza: 3,2
+
+
+3)
+match(u:Usuario)
+match( (n2:Noticia)-[r]->(u) )
+with u, count(r) as inDegree
+match (n1:Noticia)
+with u, inDegree, count(n1) as news
+where inDegree >= 0.2*news
+return u.userId as Node, inDegree
+
+Result:
+Sin Indice:
+
+ - Promedio: 54,10
+ - Varianza: 75,41
+
+Con Indice "CREATE INDEX ON :Usuario(idNoticia)":
+
+ - Promedio: Da decreciente
+ - Varianza: 
+
+4) 
+MATCH (u1:Usuario)-->(u2:Usuario)
+WITH u1, count(u2) as salida
+SET u1.cantNodosSalida = salida
+
+MATCH (u1:Usuario)-->(u2:Usuario)
+WITH u2, count(u1) as entrada
+SET u2.cantNodosEntrada = entrada
+
+MATCH (u1:Usuario)
+RETURN u1.cantNodosSalida, count(u1)
+
+MATCH (u1:Usuario)
+RETURN u1.cantNodosEntrada, count(u1)
+
+Result:
+Sin Indice:
+
+ - Promedio: 
+ - Varianza: 
+
+Con Indice "CREATE INDEX ON :Usuario(idNoticia)":
+
+ - Promedio: 
+ - Varianza: 
+
+5)
+MATCH (user:Usuario)
+WITH count(distinct(user)) as total
+MATCH (root:Usuario)-[:INFECTA]->()
+WHERE NOT ()-[:INFECTA]->(root) 
+RETURN count(distinct(root))*100/total as proporcion
+
+
+Result:
+Sin Indice:
+
+ - Promedio: 7,3
+ - Varianza: 3,61
+
+Con Indice "CREATE INDEX ON :Usuario(screemname)":
+
+ - Promedio: 5,9
+ - Varianza: 0,29
+
+6)
+
 ## Conclusión
 
  Este trabajo nos permitio indagar un poco sobre este nuevo tipo de base de datos no sql. Algunas ventajas que pudimos observar de la misma es que reflejan perfectamente la relacion entre distintas entidades, permitiendo asi, realizar analisis mas profundos sobre relaciones. Un ejemplo para mostrar esto es el del [tutorial de neo4j sobre fraudes](https://neo4j.com/graphgists/?category=fraud-detection), o mismo, este trabajo practico, donde analizamos el impacto de las noticias en base a twitts (donde los usuarios eran las entidades y los rettuits las relaciones).
