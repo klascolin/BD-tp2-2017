@@ -159,6 +159,9 @@ Notar que cuando cantNodos de entrada o salida da null es para el caso que no ti
 
 ![Alt text](/img/graphHistorigramaSin0.png?raw=true)
 
+Podemos observar en los graficos que muestran los grados de salida, que la mayoría de la comunidad mantiene una actitud "pasiva" con respecto a la emisión de noticias y que, efectivamente, son pocos nodos de usuarios los que aportan un gran caudal de noticias. Por ejemplo, se observa que hay menos de diez nodos cuyo grado de infección (cantidad de noticias falsas difundidas) es superior a 100.
+Por otra parte, se desprende del gráfico de grados de entrada, que aproximadamente el 65% de la comunidad fue penetetrada por 2 o menos noticias falsas.
+
 5. Llamaremos root-influencers a los nodos raíces del grafo de infección. Escriba una consulta que dado un nodo de usuario en el grafo de infección diga si es root-influencer o no. ¿Qué proporción hay de root-influencers? Muestre la información apropiadamente.
 
 Buscamos un nodo cuyo screenName sea "beforeitsnews"
@@ -239,11 +242,16 @@ A continuación se muestran parte de de dos componentes conexas del grafo, con l
 ![Alt text](/img/graphQuery7_1.png?raw=true)
 
 
-
-
-
 8. Considere la introducción de índices a los modelos. Evalué la performance de las consultas implementadas con y sin utilización de índices.
 
 ## Conclusión
 
+ Este trabajo nos permitio indagar un poco sobre este nuevo tipo de base de datos no sql. Algunas ventajas que pudimos observar de la misma es que reflejan perfectamente la relacion entre distintas entidades, permitiendo asi, realizar analisis mas profundos sobre relaciones. Un ejemplo para mostrar esto es el del [tutorial de neo4j sobre fraudes](https://neo4j.com/graphgists/?category=fraud-detection), o mismo, este trabajo practico, donde analizamos el impacto de las noticias en base a twitts (donde los usuarios eran las entidades y los rettuits las relaciones).
+ 
+  Por otro lado, algo un poco negativo de la misma es que es un paradigma totalmente distinto al de sql y hace que la curva de aprendizaje sea mayor (sobre todo si nunca trabajaste sobre grafos). Sin embargo, las consultas nos resultaron más declarativas que SQL.
+  
+  En sintesis, es una base de datos muy interesante para determinados casos donde las consultas sobre relaciones son fundamentales, pero si la intension es solo almacenar informacion (sin darle tanta importancia a las relaciones) es mejor seleccionar otro tipo de base de datos no sql (basada en documentos, por ejemplo).
+  
+  En cuanto al análisis de los datos, pudimos dar cuenta de la gran penetración que tienen algunos usuarios sobre la comunidad de las redes sociales. Quedo claro, en nuestro analisis, que son pocos los usuarios que se encargan de dinfundir masivamente noticias falsas.
+  Los resultados arrojaron que tan solo una única noticia logro penetrar a más del 25%, dando a entender que para esta muestra de datos en esta comunidad, no parece ser el caso en donde la cobertura de cada noticia abarque a la mayoría. Tampoco parece ser común el hecho de que un usuario esté en contacto con mas del 20% de las noticias, ya que se hayó un único caso.
 
