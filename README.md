@@ -9,8 +9,6 @@
 
  En este trabajo practico abordamos la tematica del impacto de las noticias falsas en las redes sociales. Dada una muestra de datos (tomada de [hoaxy](http://hoaxy.iuni.iu.edu)) buscamos respondernos una serie de preguntas utilizando una bate de datos orientada a grafos.
  
- In this project we going to address the problem of fake news in the social media. Given a set of data (from [hoaxy](http://hoaxy.iuni.iu.edu)) We going to try answer a set of questions using a no sql graph oriented database.
-
 ## Desarrollo
 
 **Conversión de datos .json a .csv**
@@ -163,34 +161,56 @@ Notar que cuando cantNodos de entrada o salida da null es para el caso que no ti
 
 5. Llamaremos root-influencers a los nodos raíces del grafo de infección. Escriba una consulta que dado un nodo de usuario en el grafo de infección diga si es root-influencer o no. ¿Qué proporción hay de root-influencers? Muestre la información apropiadamente.
 
+Buscamos un nodo cuyo screenName sea "beforeitsnews"
 ```
 MATCH (root:Usuario {screenName: "beforeitsnews"})-[:INFECTA]->()
+```
+Verificamos que no exista el siguiente patron. Es decir, que no haya nodos que lo infecten
+
+```
 WHERE NOT ()-[:INFECTA]->(root) 
+```
+Devolvemos false si el nodo aparece 1 o más veces en el patron anterior. Es decir, si hay al menos un nodo que lo infecta. REVISAR ESTO, PORQUE ES AL REVÉS DE LO QUE ESTÁ ABAJO.
+
+```
 RETURN count(root) > 0 as esRoot
 ```
 
+Contamos los usuarios totales
 ```
 MATCH (user:Usuario)
 WITH count(distinct(user)) as total
+```
+Como se hizo antes, buscamos los nodos root , los que no son infectados por otros, y vemos la proporción entre ambas magnitudes obtenidas.
+```
 MATCH (root:Usuario)-[:INFECTA]->()
 WHERE NOT ()-[:INFECTA]->(root) 
 RETURN count(distinct(root))*100/total as proporcion
 ```
 
+FALTA MOSTRAR LA INFORMACION
+
 6. Calcule el grado de la infección para un root-influencer dado. El grado de infección está dado por el camino más largo que se puede alcanzar desde un root-influencer.
 
 7. Pode el grafo quitando todos los root-influencers y muestre gráficamente como queda el grafo resultante. Si la información es muy grande, recorte apropiadamente.
 
+Buscamos los nodos que son root, como se hizo anteriormente, y los ordenamos en una lista de rooters. Pasamos dicha información a la siguiente parte de la query
 ```
 MATCH (root:Usuario)-[:INFECTA]->()
 WHERE NOT ()-[:INFECTA]->(root)
 WITH collection( distints root) as rooters
+```
+Buscamos todos los nodos usuarios que no esten en la lista de rooters y los devolvemos
+```
 MATCH (user:Usuario)
 WHERE NOT user IN rooters
 RETURN user.userId;
 ```
 
+FALTA MOSTRAR LA INFORMACION
+
 8. Considere la introducción de índices a los modelos. Evalué la performance de las consultas implementadas con y sin utilización de índices.
 
 ## Conclusión
+
 
