@@ -352,8 +352,6 @@ Con Indice "CREATE INDEX ON :Usuario(screemname)":
  - Promedio: 5,9
  - Varianza: 0,29
 
-6)
-
 ## Conclusión
 
  Este trabajo nos permitió indagar un poco sobre este nuevo tipo de base de datos no sql. Algunas ventajas que pudimos observar de la misma es que reflejan perfectamente la relación entre distintas entidades, permitiendo así, realizar analisis más profundos sobre relaciones. Un ejemplo para mostrar esto es el del [tutorial de neo4j sobre fraudes](https://neo4j.com/graphgists/?category=fraud-detection), o mismo, este trabajo practico, donde analizamos el impacto de las noticias en base a twitts (donde los usuarios eran las entidades y los rettuits las relaciones).
