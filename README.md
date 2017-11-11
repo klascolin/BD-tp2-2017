@@ -246,6 +246,7 @@ A continuación se muestran parte de de dos componentes conexas del grafo, con l
 ### query
 
 1)
+```
 match (u:Usuario)
 with count(u) as userNodes
 match (n:Noticia)-[r]-()
@@ -253,7 +254,7 @@ with userNodes, n, count(r) as degree
 where degree > userNodes*0.25
 return n.titulo AS node, degree
 order by degree;
-
+```
 Result:
 Sin Indice:
 
@@ -267,9 +268,10 @@ CREATE INDEX ON :Usuario(count)
  - Varianza: 0,16
 
 2)
+```
 MATCH (n:Noticia)-[:IMPACTA]->(u:Usuario)
 RETURN n as Noticia, collect(u) as Usuarios, count(u) as CantUsuarios
-
+```
 Result:
 Sin Indice:
 
@@ -283,6 +285,7 @@ Con Indice "CREATE INDEX ON :Usuario(idNoticia)":
 
 
 3)
+```
 match(u:Usuario)
 match( (n2:Noticia)-[r]->(u) )
 with u, count(r) as inDegree
@@ -290,7 +293,7 @@ match (n1:Noticia)
 with u, inDegree, count(n1) as news
 where inDegree >= 0.2*news
 return u.userId as Node, inDegree
-
+```
 Result:
 Sin Indice:
 
@@ -303,6 +306,7 @@ Con Indice "CREATE INDEX ON :Usuario(idNoticia)":
  - Varianza: 
 
 4) 
+```
 MATCH (u1:Usuario)-->(u2:Usuario)
 WITH u1, count(u2) as salida
 SET u1.cantNodosSalida = salida
@@ -316,7 +320,7 @@ RETURN u1.cantNodosSalida, count(u1)
 
 MATCH (u1:Usuario)
 RETURN u1.cantNodosEntrada, count(u1)
-
+```
 Result:
 Sin Indice:
 
@@ -329,12 +333,13 @@ Con Indice "CREATE INDEX ON :Usuario(idNoticia)":
  - Varianza: 
 
 5)
+```
 MATCH (user:Usuario)
 WITH count(distinct(user)) as total
 MATCH (root:Usuario)-[:INFECTA]->()
 WHERE NOT ()-[:INFECTA]->(root) 
 RETURN count(distinct(root))*100/total as proporcion
-
+```
 
 Result:
 Sin Indice:
