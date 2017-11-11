@@ -1,5 +1,4 @@
 # Impacto de noticias falsas en redes sociales
-(fake news' impact in social media)
 
 **Base de datos:** NoSql Graph oriented
 
