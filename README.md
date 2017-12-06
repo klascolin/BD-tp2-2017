@@ -334,6 +334,9 @@ Con Indice "CREATE INDEX ON :Usuario(idNoticia)":
 
 5)
 ```
+MATCH (root:Usuario {screenName: "beforeitsnews"})-[:INFECTA]->()
+WHERE NOT ()-[:INFECTA]->(root) 
+RETURN count(root) > 0 as esRoot
 MATCH (user:Usuario)
 WITH count(distinct(user)) as total
 MATCH (root:Usuario)-[:INFECTA]->()
@@ -352,6 +355,7 @@ Con Indice "CREATE INDEX ON :Usuario(screemname)":
  - Promedio: 5,9
  - Varianza: 0,29
 
+6) Al igual que la consulta anterior, como se va a hacer una búsqueda por igualdad en el campo screenName, obteniendo un único usuario, nos encontramos en el mejor caso posible referido a términos de selectividad. Por lo tanto, sería útil definir un índice sobre screenName. El promedio obtenido con 7 corridas y descartando la primera , sin la utilización del índice, es de 20.48 con una deviación standard de 4.5. En cambio, como se suponía, la situación mejoró al utilizar el índice, obteniendose un valor promedio de 8.57 y una deviación standard de 	3.73.
 ## Conclusión
 
  Este trabajo nos permitió indagar un poco sobre este nuevo tipo de base de datos no sql. Algunas ventajas que pudimos observar de la misma es que reflejan perfectamente la relación entre distintas entidades, permitiendo así, realizar analisis más profundos sobre relaciones. Un ejemplo para mostrar esto es el del [tutorial de neo4j sobre fraudes](https://neo4j.com/graphgists/?category=fraud-detection), o mismo, este trabajo practico, donde analizamos el impacto de las noticias en base a twitts (donde los usuarios eran las entidades y los rettuits las relaciones).
